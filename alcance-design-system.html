@@ -1843,7 +1843,8 @@
       width: 100%;
       border-collapse: collapse;
       margin-bottom: 24px;
-      font-size: 13px
+      font-size: 13px;
+      table-layout: fixed
     }
 
     .token-table th {
@@ -1854,13 +1855,24 @@
       text-transform: uppercase;
       color: var(--text-secondary);
       padding: 8px 12px;
-      border-bottom: 1px solid var(--border)
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
     }
+
+    .token-table th:nth-child(1) { width: 36% }
+    .token-table th:nth-child(2) { width: 20% }
+    .token-table th:nth-child(3),
+    .token-table th:nth-child(4) { width: 22% }
 
     .token-table td {
       padding: 10px 12px;
       border-bottom: 1px solid rgba(48, 54, 61, .4);
-      vertical-align: middle
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
     }
 
     .token-table tr:last-child td {
