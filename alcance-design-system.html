@@ -5684,12 +5684,10 @@
         return;
       }
 
-      const allModes = [...new Set(tokens.flatMap(t => Object.keys(t.modes)))].sort();
-
-      // Group by first path segment (e.g. "--alc-radius" from "--alc-radius/default")
+      // Group by first path segment
       const groups = {};
       for (const t of tokens) {
-        const group = t.name.includes('/') ? t.name.split('/')[0] : t.name.split('-').slice(0, -1).join('-') || t.name;
+        const group = t.name.includes('/') ? t.name.split('/')[0] : t.name;
         (groups[group] = groups[group] || []).push(t);
       }
 
@@ -5699,10 +5697,10 @@
         const val = t.modes[m];
         if (val === undefined || val === null) return `<td class="token-no-value">—</td>`;
         if (t.type === 'COLOR') {
-          return `<td><div class="token-swatch-row">
-            <div class="token-swatch-mini" style="background:${val}"></div>
-            <span>${val}</span>
-          </div></td>`;
+          const safe = typeof val === 'string' && val.startsWith('#');
+          return `<td><div class="token-swatch-row">${
+            safe ? `<div class="token-swatch-mini" style="background:${val}"></div>` : ''
+          }<span>${val}</span></div></td>`;
         }
         if (t.type === 'NUMBER') {
           return `<td><span class="token-number-value">${val}${Number.isFinite(val) ? 'px' : ''}</span></td>`;
@@ -5713,16 +5711,29 @@
       let html = `<div class="subsection-title">Tokens Importados</div>`;
 
       for (const [group, list] of Object.entries(groups)) {
+        // Only use modes that exist in this group
+        const groupModes = [...new Set(list.flatMap(t => Object.keys(t.modes)))].sort();
+        const isSingleMode = groupModes.length === 1;
+
         html += `<div class="figma-group-label">${group}</div>`;
         html += `<table class="token-table"><thead><tr>`;
-        html += `<th>Token</th>`;
-        for (const m of allModes) html += `<th>${cap(m)}</th>`;
+        html += `<th>Token</th><th>Variação</th>`;
+        if (isSingleMode) {
+          html += `<th>Valor</th>`;
+        } else {
+          for (const m of groupModes) html += `<th>${cap(m)}</th>`;
+        }
         html += `</tr></thead><tbody>`;
 
         for (const t of list) {
-          const label = t.name.includes('/') ? t.name.split('/').slice(1).join('/') : t.name;
-          html += `<tr><td class="token-name">${label}</td>`;
-          for (const m of allModes) html += renderCell(t, m);
+          const prefix   = t.name.includes('/') ? t.name.split('/')[0] : t.name;
+          const variacao = t.name.includes('/') ? t.name.split('/').slice(1).join('/') : '—';
+          html += `<tr><td class="token-name">${prefix}</td><td class="token-name" style="opacity:.7">${variacao}</td>`;
+          if (isSingleMode) {
+            html += renderCell(t, groupModes[0]);
+          } else {
+            for (const m of groupModes) html += renderCell(t, m);
+          }
           html += `</tr>`;
         }
 
