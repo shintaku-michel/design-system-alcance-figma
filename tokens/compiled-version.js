@@ -3567,5 +3567,180 @@ var TOKEN_SEED = [
     "modes": {
       "Mode 1": 700
     }
+  },
+  {
+    "name": "Button/background/Primary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#0D7EA2"
+    }
+  },
+  {
+    "name": "Button/background/Primary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#074B69"
+    }
+  },
+  {
+    "name": "Button/background/Primary/disabled",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#E6E6E6"
+    }
+  },
+  {
+    "name": "Button/background/Primary/pressed",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/background/Secondary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Button/background/Secondary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#DAE9EE"
+    }
+  },
+  {
+    "name": "Button/background/Secondary/pressed",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#E1F3F8"
+    }
+  },
+  {
+    "name": "Button/background/Secondary/disabled",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#E6E6E6"
+    }
+  },
+  {
+    "name": "Button/border/Secondary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/border/Secondary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/border/Secondary/pressed",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/text/Primary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Button/text/Primary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Button/text/Primary/disabled",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#5C5C5C"
+    }
+  },
+  {
+    "name": "Button/text/Secondary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/text/Secondary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/text/Secondary/Pressed",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/text/Secondary/disabled",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#5C5C5C"
+    }
+  },
+  {
+    "name": "Button/Icon/Primary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Button/Icon/Primary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#FFFFFF"
+    }
+  },
+  {
+    "name": "Button/Icon/Primary/disabled",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#5C5C5C"
+    }
+  },
+  {
+    "name": "Button/Icon/Secondary/default",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/Icon/Secondary/hover",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/Icon/Secondary/Pressed",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#07648D"
+    }
+  },
+  {
+    "name": "Button/Icon/Secondary/disabled",
+    "type": "COLOR",
+    "modes": {
+      "Mode 1": "#5C5C5C"
+    }
   }
 ];
