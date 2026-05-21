@@ -3742,5 +3742,152 @@ var TOKEN_SEED = [
     "modes": {
       "Mode 1": "#5C5C5C"
     }
+  },
+  {
+    "name": "--alc-size/xs",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 4
+    }
+  },
+  {
+    "name": "--alc-size/sm",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 8
+    }
+  },
+  {
+    "name": "--alc-size/md",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 12
+    }
+  },
+  {
+    "name": "--alc-size/lg",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 16
+    }
+  },
+  {
+    "name": "--alc-size/xl",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 24
+    }
+  },
+  {
+    "name": "--alc-size/2xl",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 32
+    }
+  },
+  {
+    "name": "--alc-size/3xl",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 40
+    }
+  },
+  {
+    "name": "--alc-size/4xl",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 48
+    }
+  },
+  {
+    "name": "--alc-spacing/10",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 64
+    }
+  },
+  {
+    "name": "--alc-spacing/11",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 80
+    }
+  },
+  {
+    "name": "--alc-spacing/12",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 96
+    }
+  },
+  {
+    "name": "--alc-spacing/13",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 160
+    }
+  },
+  {
+    "name": "--alc-spacing/01",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 2
+    }
+  },
+  {
+    "name": "--alc-spacing/02",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 4
+    }
+  },
+  {
+    "name": "--alc-spacing/03",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 8
+    }
+  },
+  {
+    "name": "--alc-spacing/04",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 12
+    }
+  },
+  {
+    "name": "--alc-spacing/05",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 16
+    }
+  },
+  {
+    "name": "--alc-spacing/06",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 24
+    }
+  },
+  {
+    "name": "--alc-spacing/07",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 32
+    }
+  },
+  {
+    "name": "--alc-spacing/08",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 40
+    }
+  },
+  {
+    "name": "--alc-spacing/09",
+    "type": "NUMBER",
+    "modes": {
+      "Mode 1": 48
+    }
   }
 ];
