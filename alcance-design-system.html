@@ -1861,10 +1861,8 @@
       text-overflow: ellipsis
     }
 
-    .token-table th:nth-child(1) { width: 36% }
-    .token-table th:nth-child(2) { width: 20% }
-    .token-table th:nth-child(3),
-    .token-table th:nth-child(4) { width: 22% }
+    .token-table th:nth-child(1),
+    .token-table td:nth-child(1) { width: 55% }
 
     .token-table td {
       padding: 10px 12px;
@@ -5696,56 +5694,88 @@
         return;
       }
 
-      // Group by first path segment
-      const groups = {};
-      for (const t of tokens) {
-        const group = t.name.includes('/') ? t.name.split('/')[0] : t.name;
-        (groups[group] = groups[group] || []).push(t);
-      }
-
       const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 
-      function renderCell(t, m) {
-        const val = t.modes[m];
-        if (val === undefined || val === null) return `<td class="token-no-value">—</td>`;
-        if (t.type === 'COLOR') {
-          const safe = typeof val === 'string' && val.startsWith('#');
-          return `<td><div class="token-swatch-row">${
-            safe ? `<div class="token-swatch-mini" style="background:${val}"></div>` : ''
-          }<span>${val}</span></div></td>`;
-        }
-        if (t.type === 'NUMBER') {
-          return `<td><span class="token-number-value">${val}${Number.isFinite(val) ? 'px' : ''}</span></td>`;
-        }
-        return `<td class="token-name" style="opacity:.7">${val}</td>`;
+      // Smart grouping: 2-segment key for lowercase namespaces (font/size, font/weight…),
+      // 1-segment for CSS vars (--alc-*) and ALL-CAPS namespaces (USWDS)
+      function getGroupKey(name) {
+        const parts = name.split('/');
+        if (parts.length <= 2) return parts[0] || name;
+        const first = parts[0];
+        if (first.startsWith('--') || first === first.toUpperCase()) return first;
+        return `${parts[0]}/${parts[1]}`;
       }
 
-      let html = `<div class="subsection-title">Tokens Importados</div>`;
+      // TOKEN display: show only the part after the group prefix
+      function getTokenDisplay(name) {
+        const parts = name.split('/');
+        if (parts.length === 1) return name;
+        if (parts[0].startsWith('--')) return parts.join('-');
+        const groupDepth = getGroupKey(name).split('/').length;
+        return parts.slice(groupDepth).join('/') || name;
+      }
+
+      function swatchCell(val) {
+        const safe = typeof val === 'string' && val.startsWith('#');
+        return `<td><div class="token-swatch-row">${safe ? `<div class="token-swatch-mini" style="background:${val}"></div>` : ''}<span>${val}</span></div></td>`;
+      }
+
+      // Build ordered groups
+      const groups = {};
+      for (const t of tokens) {
+        const key = getGroupKey(t.name);
+        (groups[key] = groups[key] || []).push(t);
+      }
+
+      let html = ``;
 
       for (const [group, list] of Object.entries(groups)) {
-        // Only use modes that exist in this group
-        const groupModes = [...new Set(list.flatMap(t => Object.keys(t.modes)))].sort();
-        const isSingleMode = groupModes.length === 1;
+        const isNumberGroup = list.every(t => t.type === 'NUMBER');
+        const groupLabel = group.toUpperCase().replace(/\//g, ' ');
 
-        html += `<div class="figma-group-label">${group}</div>`;
-        html += `<table class="token-table"><thead><tr>`;
-        html += `<th>Token</th><th>Variação</th>`;
-        if (isSingleMode) {
+        // Collect only hex-value modes
+        const colorModes = isNumberGroup ? [] : [...new Set(
+          list.flatMap(t =>
+            Object.entries(t.modes)
+              .filter(([, v]) => typeof v === 'string' && v.startsWith('#'))
+              .map(([k]) => k)
+          )
+        )].sort();
+
+        html += `<div class="figma-group-label">${groupLabel}</div>`;
+        html += `<table class="token-table"><thead><tr><th>Token</th>`;
+
+        if (isNumberGroup || colorModes.length <= 1) {
           html += `<th>Valor</th>`;
         } else {
-          for (const m of groupModes) html += `<th>${cap(m)}</th>`;
+          for (const m of colorModes) html += `<th>${cap(m)}</th>`;
         }
+
         html += `</tr></thead><tbody>`;
 
         for (const t of list) {
-          const prefix   = t.name.includes('/') ? t.name.split('/')[0] : t.name;
-          const variacao = t.name.includes('/') ? t.name.split('/').slice(1).join('/') : '—';
-          html += `<tr><td class="token-name">${prefix}</td><td class="token-name" style="opacity:.7">${variacao}</td>`;
-          if (isSingleMode) {
-            html += renderCell(t, groupModes[0]);
+          html += `<tr><td class="token-name">${getTokenDisplay(t.name)}</td>`;
+
+          if (isNumberGroup) {
+            let numVal = null;
+            for (const v of Object.values(t.modes)) {
+              if (typeof v === 'number') { numVal = v; break; }
+            }
+            // Font weight values are unitless
+            const unit = /weight/i.test(group) ? '' : 'px';
+            html += numVal !== null
+              ? `<td><span class="token-number-value">${numVal}${unit}</span></td>`
+              : `<td class="token-no-value">—</td>`;
+          } else if (colorModes.length <= 1) {
+            const val = colorModes[0] ? t.modes[colorModes[0]] : undefined;
+            html += val ? swatchCell(val) : `<td class="token-no-value">—</td>`;
           } else {
-            for (const m of groupModes) html += renderCell(t, m);
+            for (const m of colorModes) {
+              const val = t.modes[m];
+              html += (val !== undefined && val !== null) ? swatchCell(val) : `<td class="token-no-value">—</td>`;
+            }
           }
+
           html += `</tr>`;
         }
 
